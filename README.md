@@ -1,5 +1,5 @@
 # PocketProtector
-Speed up charging by entering a super low power state while plugged in.
+Prevent your pocket from accidentally using your phone.
 <br/><br/>
 ## What does the tweak do?
 - Detects when the iPhone's proximity sensor is activated as near.
