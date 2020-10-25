@@ -1,0 +1,34 @@
+name: Pocket Protector
+id: dev.squiddy.pp
+icmd: killall -9 backboardd
+author: Brady Holland
+version: 1.0.0
+depends: preferenceloader, ws.hbang.common (>= 1.11)
+
+PocketProtector:
+    targetvers: 10.3
+    archs:
+        - arm64
+        - arm64e
+    type: tweak
+    wild_recurse: Yes
+    ldflags: "-ObjC"
+    logos_files:
+        - Tweak.xm
+    frameworks:
+        - Foundation
+        - CoreMotion
+        - IOKit
+        - Preferences
+        - UIKit
+        - Cephei
+
+pocketprotectorprefs:
+    dir: pocketprotectorprefs
+    type: prefs
+    objc_files:
+        - PPPRootListController.m
+    frameworks:
+        - Preferences
+        - UIKit
+        - CepheiPrefs

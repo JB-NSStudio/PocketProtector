@@ -1,0 +1,6 @@
+{
+    Filter = {
+        Executables = ("backboardd");
+        Bundles = ("com.apple.springboard");
+    };
+}
