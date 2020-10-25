@@ -125,6 +125,7 @@ static void lockScreen(){
 		
 		%new
 		-(void)startMotion {
+			cachedScreenBrightness = [UIScreen mainScreen].brightness;
 			[self.motionManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXMagneticNorthZVertical
 			toQueue:[NSOperationQueue mainQueue]
 			withHandler:^(CMDeviceMotion *accelerometerData, NSError *error) {
