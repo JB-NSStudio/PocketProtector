@@ -1,0 +1,9 @@
+Package: dev.squiddy.pp.cc
+Name: ppccmodule
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome Control Center module!
+Maintainer: Brady Holland
+Author: Brady Holland
+Section: Control Center (Modules)

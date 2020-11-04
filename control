@@ -1,10 +1,10 @@
 Package: dev.squiddy.pp
 Name: PocketProtector
-Version: 1.1
+Version: 1.2
 Architecture: iphoneos-arm
 Description: Prevent pocket dials and other pocket usage.
 Maintainer: Brady Holland
 Icon: https://repo.squidkingdom.com/depictions/build/PPIcon.png
-Author: Brady Holland <420chrisisthataweed420@gmail.com>
+Author: Brady Holland <squiddytweaks@gmail.com>
 Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000), preferenceloader, ws.hbang.common (>= 1.11)
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader, com.opa334.ccsupport, ws.hbang.common (>= 1.11)

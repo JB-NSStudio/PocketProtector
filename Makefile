@@ -15,5 +15,5 @@ pocketprotector_PRIVATE_FRAMEWORKS = Preferences
 pocketprotector_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
-SUBPROJECTS += pocketprotectorprefs
+SUBPROJECTS += pocketprotectorprefs ppccmodule
 include $(THEOS_MAKE_PATH)/aggregate.mk

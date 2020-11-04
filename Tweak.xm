@@ -12,6 +12,7 @@ static float cachedScreenBrightness = 1.0;
 static bool isDimmed;
 static float kLockDelay = 5;
 static double kSensitivity = -0.436332;
+static bool kEnabled = true;
 
 
 extern "C" void IOHIDEventQueueEnqueue(IOHIDEventQueueRef queue, IOHIDEventRef event);
@@ -19,6 +20,7 @@ void (*old_Enqueue)(IOHIDEventQueueRef queue, IOHIDEventRef event);
 
 #pragma mark - Enqueue
 void newEnqueue(IOHIDEventQueueRef queue, IOHIDEventRef event){
+	if(kEnabled){
 		if(IOHIDEventGetType(event) == (unsigned)14){
 				if(sixOff == 0){
 					sixOff = 5;
@@ -26,7 +28,6 @@ void newEnqueue(IOHIDEventQueueRef queue, IOHIDEventRef event){
 						POST_NOTIF("dev.squiddy.PP/StartM")
 						 
 					}else{
-						HBLogDebug(@" Stop");
 						POST_NOTIF("dev.squiddy.PP/StopM")
 					}	
 				}else{
@@ -34,6 +35,9 @@ void newEnqueue(IOHIDEventQueueRef queue, IOHIDEventRef event){
 				}
 			}
 		old_Enqueue(queue, event);
+	}else{
+		old_Enqueue(queue, event);
+	}
 }
 
 
@@ -172,17 +176,18 @@ static void stopMotion(){
 	[UX restoreScreenBrightness];
 }
 
-void loadPrefs(){
+static void loadPrefs(){
+	
 	NSDictionary *prefs = [[NSUserDefaults standardUserDefaults] persistentDomainForName:@"dev.squiddy.PP"];
 	if (prefs) {
 		kLockDelay  =  [prefs objectForKey:@"delay"] ? [[prefs objectForKey:@"delay"] floatValue] : 5.f;
+		kEnabled = [prefs objectForKey:@"enabled"] ? [[prefs objectForKey:@"enabled"] boolValue] : YES;
+
 		float temp = 0;
 		temp  =  [prefs objectForKey:@"sensitivity"] ? [[prefs objectForKey:@"sensitivity"] floatValue] : -20.f;
 		//Convert Degrees to radian.
 		kSensitivity = (temp * M_PI)/180;
 	}
-	
-	
 }
 
 
@@ -193,10 +198,12 @@ void loadPrefs(){
 
 
 %ctor {
+
+	LISTEN_NOTIF(loadPrefs, "dev.squiddy.PP/prefs")
 	if ([[[NSProcessInfo processInfo].processName uppercaseString] isEqualToString:@"SPRINGBOARD"]) {
 		LISTEN_NOTIF(startMotion, "dev.squiddy.PP/StartM")
 		LISTEN_NOTIF(stopMotion, "dev.squiddy.PP/StopM")
-		LISTEN_NOTIF(loadPrefs, "dev.squiddy.PP/prefs")
 	}
+	loadPrefs();
 	MSHookFunction(&IOHIDEventQueueEnqueue,&newEnqueue,&old_Enqueue);
 }

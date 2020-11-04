@@ -3,9 +3,10 @@ id: dev.squiddy.pp
 icmd: killall -9 backboardd
 author: Brady Holland
 version: 1.0.0
-depends: preferenceloader, ws.hbang.common (>= 1.11)
+depends: preferenceloader, ws.hbang.common (>= 1.11), com.opa334.ccsupport
 
 PocketProtector:
+    sysroot: $DRAGONBUILD/sdks/iPhoneOS11.2.sdk
     targetvers: 10.3
     archs:
         - arm64
@@ -24,6 +25,7 @@ PocketProtector:
         - Cephei
 
 pocketprotectorprefs:
+    sysroot: $DRAGONBUILD/sdks/iPhoneOS11.2.sdk
     dir: pocketprotectorprefs
     type: prefs
     objc_files:
@@ -32,3 +34,17 @@ pocketprotectorprefs:
         - Preferences
         - UIKit
         - CepheiPrefs
+
+ppccmodule:
+    dir: ppccmodule
+    type: bundle
+    archs:
+        - arm64
+        - arm64e
+    objc_files:
+        - ppccmodule.m
+    frameworks:
+        - UIKit
+        - Foundation
+        - Preferences
+        - ControlCenterUIKit
