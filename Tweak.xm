@@ -134,7 +134,7 @@ static void lockScreen(){
 			toQueue:[NSOperationQueue mainQueue]
 			withHandler:^(CMDeviceMotion *accelerometerData, NSError *error) {
 				dispatch_async(dispatch_get_main_queue(), ^{
-					if ((double)[[NSNumber numberWithDouble:accelerometerData.attitude.pitch] doubleValue] < (double)TRIGGERANGLE ){
+					if ((double)[[NSNumber numberWithDouble:accelerometerData.attitude.pitch] doubleValue] < (double)kSensitivity ){
 						if(!deviceUpsideDown){
 							deviceUpsideDown = true;
 							[UX dimmScreenBrightness];
@@ -184,7 +184,7 @@ static void loadPrefs(){
 		kEnabled = [prefs objectForKey:@"enabled"] ? [[prefs objectForKey:@"enabled"] boolValue] : YES;
 
 		float temp = 0;
-		temp  =  [prefs objectForKey:@"sensitivity"] ? [[prefs objectForKey:@"sensitivity"] floatValue] : -20.f;
+		temp  =  [prefs objectForKey:@"sensitivity"] ? [[prefs objectForKey:@"sensitivity"] floatValue] : -25.f;
 		//Convert Degrees to radian.
 		kSensitivity = (temp * M_PI)/180;
 	}
